@@ -1,14 +1,21 @@
 package com.example.arknights;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,12 +30,18 @@ public class MainActivity extends AppCompatActivity {
     private RecordDataBaseHelper helper;
     private SQLiteDatabase db;
     private List<employee> employees = new ArrayList<employee>();
+    private TextView last;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         init();
+        setStatusBar();
+
         Button button1 = (Button)findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +76,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(in);
             }
         });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.action_wisdom:
+                        Intent intent = new Intent(MainActivity.this,WisdomNoti.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void init(){
         helper = new RecordDataBaseHelper(this,"Record",null,1);
         db=helper.getWritableDatabase();
+        navigationView=(NavigationView)findViewById(R.id.navigation_Main);
         clear = (Button)findViewById(R.id.clear);
         counts=(TextView)findViewById(R.id.countsText);
         rarity=(TextView)findViewById(R.id.SixRarityText);
         record=(Button)findViewById(R.id.viewRecord);
+        last=(TextView)findViewById(R.id.lastSix);
         if(!SPUtils.contains(this,"Counts"))
             SPUtils.put(this,"Counts",0);
         counts.setText(SPUtils.get(this,"Counts",0).toString());
@@ -83,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Cursor c = db.query("Record",new String[]{"name","rarity","location"},
                 null,null,null,null,null);
+        last.setText("距离上一次六星："+((int)SPUtils.get(this,"Counts",0)-(int)SPUtils.get(this,"LastSix",0)));
         c.moveToFirst();
         while(!c.isAfterLast()){
             employees.add(new employee(c.getString(c.getColumnIndex("name")),c.getInt(c.getColumnIndex("rarity")),c.getString(c.getColumnIndex("location"))));
@@ -105,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Cursor c = db.query("Record",new String[]{"name","rarity","location"},
                 null,null,null,null,null);
+        last.setText("距离上一次六星："+((int)SPUtils.get(this,"Counts",0)-(int)SPUtils.get(this,"LastSix",0)));
         c.moveToFirst();
         employees.clear();
         while(!c.isAfterLast()){
@@ -112,4 +143,14 @@ public class MainActivity extends AppCompatActivity {
             c.moveToNext();
         }
     }
+
+    protected void setStatusBar() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    public Activity getActivity() {
+        return MainActivity.this;
+    }
+
 }

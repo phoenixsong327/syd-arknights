@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,6 +29,8 @@
         app:layout_constraintLeft_toRightOf="@id/item2"
         app:layout_constraintRight_toRightOf="parent" />
 
+
+
     <TextView
         android:id="@+id/item2"
         android:layout_width="100dp"
@@ -39,4 +42,13 @@
         app:layout_constraintRight_toRightOf="@id/item1"
         app:layout_constraintLeft_toLeftOf="@id/item1"
         />
+
+    <ImageView
+        android:id="@+id/touxiang"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/yifulite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item1"
+        app:layout_constraintRight_toLeftOf="@id/imageView3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
