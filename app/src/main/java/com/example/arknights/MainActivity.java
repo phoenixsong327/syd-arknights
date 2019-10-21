@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -118,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
             employees.add(new employee(c.getString(c.getColumnIndex("name")),c.getInt(c.getColumnIndex("rarity")),c.getString(c.getColumnIndex("location"))));
             c.moveToNext();
         }
+
+        ViewGroup.LayoutParams params = navigationView.getLayoutParams();
+        params.width = getResources().getDisplayMetrics().widthPixels * 2 / 3;
+        navigationView.setLayoutParams(params);
+
     }
 
 
