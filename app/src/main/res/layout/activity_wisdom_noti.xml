@@ -1,95 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WisdomNoti">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="0dip"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_arknights" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:layout_marginTop="0dip"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/_arknights" />
+    <TextView
+    android:id="@+id/textCurrent"
+    android:layout_width="105dp"
+    android:layout_height="45dp"
+    android:text="当前理智："
+    android:textSize="20dp"
+    android:gravity="center"
+    app:layout_constraintTop_toBottomOf="@id/imageView2"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@id/current"
+    app:layout_constraintHorizontal_chainStyle="packed"
+    android:layout_marginTop="20dp"/>
 
-        <TextView
-        android:id="@+id/textCurrent"
-        android:layout_width="105dp"
+
+    <EditText
+        android:id="@+id/current"
+        android:layout_width="100dp"
         android:layout_height="45dp"
-        android:text="当前理智："
         android:textSize="20dp"
-        android:gravity="center"
+        android:gravity="left|center"
+        android:inputType="number"
+        app:layout_constraintLeft_toRightOf="@id/textCurrent"
         app:layout_constraintTop_toBottomOf="@id/imageView2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/current"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:id="@+id/textMax"
+        android:layout_width="105dp"
+        android:layout_height="45dp"
+        android:textSize="20dp"
+        android:text="理智上限："
+        android:gravity="center"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/textCurrent"
+        app:layout_constraintRight_toLeftOf="@id/Max"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"/>
 
-        <EditText
-            android:id="@+id/current"
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:textSize="20dp"
-            android:gravity="left|center"
-            android:inputType="number"
-            app:layout_constraintLeft_toRightOf="@id/textCurrent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="20dp"/>
+    <EditText
+        android:id="@+id/Max"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:textSize="20dp"
+        android:gravity="left|center"
+        android:inputType="number"
+        android:hint="130"
+        app:layout_constraintLeft_toRightOf="@id/textMax"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textCurrent"/>
+    <Button
+        android:id="@+id/noti"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="设置理智溢出提醒"
+        style="@style/button_blue_style"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/textMax"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/textMax"
-            android:layout_width="105dp"
-            android:layout_height="45dp"
-            android:textSize="20dp"
-            android:text="理智上限："
-            android:gravity="center"
-            android:inputType="number"
-            app:layout_constraintTop_toBottomOf="@id/textCurrent"
-            app:layout_constraintRight_toLeftOf="@id/Max"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"/>
-
-        <EditText
-            android:id="@+id/Max"
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:textSize="20dp"
-            android:gravity="left|center"
-            android:inputType="number"
-            android:hint="130"
-            app:layout_constraintLeft_toRightOf="@id/textMax"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCurrent"/>
-        <Button
-            android:id="@+id/noti"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="设置理智溢出提醒"
-            style="@style/button_blue_style"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textMax"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_Wisdom"
-        android:layout_gravity="left"
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/head_layout"
-        app:menu="@menu/navigation_menu">
-    </com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
